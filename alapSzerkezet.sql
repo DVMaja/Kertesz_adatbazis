@@ -13,12 +13,12 @@ create table noveny_kategoria(
  
 create table noveny
 (
-tudomanyos_nev nvarchar(30),
-nev nvarchar(30) not null,
-noveny_kategoria int not null,
+	tudomanyos_nev nvarchar(30),
+	nev nvarchar(30) not null,
+	noveny_kategoria int not null,
 
-primary key (tudomanyos_nev),
-foreign key (noveny_kategoria) references noveny_kategoria(id),
+	primary key (tudomanyos_nev),
+	foreign key (noveny_kategoria) references noveny_kategoria(id),
 )
 
 create table kiszereles(
@@ -38,8 +38,7 @@ create table termek(
 	kiszereles int not null,
 	ar int not null,
 	keszlet int not null default(0),
-	lefoglalt_mennyiseg int not null default(0),
-	nev nvarchar(30) not null,
+	lefoglalt_mennyiseg int not null default(0),	
 
 	primary key (termek_kod),
 	foreign key (noveny) references noveny(tudomanyos_nev),
