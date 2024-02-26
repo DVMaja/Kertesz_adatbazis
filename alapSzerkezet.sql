@@ -32,8 +32,8 @@ create table kiszereles(
 create table termek(
 	termek_kod int identity(1000,1), --1000 +
 	noveny nvarchar(30),
-	allapot bit not null,
-	tipus bit not null,
+	allapot bit not null, --Mag 0 vagy Élő növény 1
+	tipus bit not null, --Haszonnövény 0 vagy Dísznövény 1
 	szin nvarchar(30),
 	kiszereles int not null,
 	ar int not null,
@@ -79,7 +79,7 @@ create table eladas_tetel(
 
 	primary key (eladas_szam, termek),	
 	foreign key (termek) references termek(termek_kod),	
-	foreign key (eladas_szam) references nyugta(nyugta_szam),	
+	foreign key (eladas_szam) references eladas(eladas_szam),	
 )
 
 create table felhasznalo(	
