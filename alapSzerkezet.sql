@@ -1,4 +1,4 @@
-create database kerteszwebaruhaz
+--create database kerteszwebaruhaz
 
 go
 use kerteszwebaruhaz
@@ -37,8 +37,8 @@ create table termek(
 	szin nvarchar(30),
 	kiszereles int not null,
 	ar int not null,
-	keszlet int not null,
-	lefoglalt_mennyiseh int not null,
+	keszlet int not null default(0),
+	lefoglalt_mennyiseg int not null default(0),
 	nev nvarchar(30) not null,
 
 	primary key (termek_kod),
@@ -57,30 +57,30 @@ create table termek_ar(
 
 create table beszerzes(	
 	termek int not null,
-	besz_datum date not null,
-	darabszam int not null,  
+	besz_datum date not null default(getDate()),
+	darabszam int not null default(1),  
 	besz_ar int not null,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 
 	primary key (termek, besz_datum),	
 	foreign key (termek) references termek(termek_kod),	
 )
 
-create table nyugta(	
-	nyugta_szam int identity(100000,1),
-	vas_datum date not null,
-	vegosszeg int not null,  	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+create table eladas(	
+	eladas_szam int identity(100000,1),
+	vas_datum date not null default(getDate()),
+	vegosszeg int,  	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 
-	primary key (nyugta_szam),	
+	primary key (eladas_szam),	
 )
 
-create table nyugta_tetel(	
-	nyugta_szam int not null,
+create table eladas_tetel(	
+	eladas_szam int not null,
 	termek int not null,
 	darabszam int not null,  	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 
-	primary key (nyugta_szam, termek),	
+	primary key (eladas_szam, termek),	
 	foreign key (termek) references termek(termek_kod),	
-	foreign key (nyugta_szam) references nyugta(nyugta_szam),	
+	foreign key (eladas_szam) references nyugta(nyugta_szam),	
 )
 
 create table felhasznalo(	
@@ -88,5 +88,7 @@ create table felhasznalo(
 	nev varchar(30) not null,
 	email nvarchar(50) not null,
 	jelszo varchar(30) not null,
-	felhasz_szint int not null, 	
+	felhasz_szint int not null default(2),  --ez a felhasználói szint	
 )
+
+--technikai táblák
